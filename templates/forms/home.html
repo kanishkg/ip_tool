@@ -1,0 +1,164 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Upload Image{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="col-sm-9">
+<img id='source' src="{{url_for('uploaded_file',filename=filename)}}" alt="">
+
+<img id='target' src="{{url_for('uploaded_file',filename=target)}}" alt="">
+	</div>
+<div class = "col-sm-3 center-block">
+        <div class="row">
+            <input type="text" class="form-control" maxlength="12" id="p1" placeholder="pixel1"
+            name="p1">
+            <input type="text" class="form-control" maxlength = "12" id="p2" placeholder="pixel2"
+            name="p2">
+        </div>
+
+    <form id="up-form" method=POST enctype=multipart/form-data >
+        <div class="row center-block">
+        <label for="file"></label>
+        <input name="file" type="file">
+	</div>
+
+    <div class="btn-group-vertical center-block">
+                <button id="up" type="button" class="btn btn-primary">Upload</button>
+                <button type="button" id="bl1"class="btn btn-primary">Blur1</button>
+                <button type="button" id="bl2" class="btn btn-primary">Blur2</button>
+
+                <button type="button" id="ip1"class="btn btn-primary">InPaint1</button>
+                <button type="button" id="ip2" class="btn btn-primary">InPaint2</button>
+	</div>
+
+    </form>
+</div>
+</div>
+    <script >
+$(document).ready(function(){
+var c = 0
+$("#source").click(function(e) {
+  if (c==0){
+  var offset = $(this).offset();
+  var relativeX = (e.pageX - offset.left);
+  var relativeY = (e.pageY - offset.top);
+  $("#p1").val(relativeX+':'+relativeY);
+  $(".position").val("afaf");
+  c = 1;
+}
+else{
+  var offset = $(this).offset();
+  var relativeX = (e.pageX - offset.left);
+  var relativeY = (e.pageY - offset.top);
+  $("#p2").val(relativeX+':'+relativeY);
+  $(".position").val("afaf");
+  c = 0;
+}
+
+});
+$("#bl1").click(function(e) {
+    var imgsrc = $("#source").attr('src');
+    var m = 1;
+    var p1 = $("#p1").val()
+    var p2 = $("#p2").val()
+    var d = {"imgsrc": imgsrc , "m":m,"p1":p1,"p2":p2}
+    $.ajax({
+            url: '/blur',
+            data: d,
+            type: 'POST',
+            cache: false,
+            success: function(response) {
+
+            $('#target').attr('src', response.url);
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+});
+$("#bl2").click(function(e) {
+    var imgsrc = $("#source").attr('src');
+    var m = 2;
+    var p1 = $("#p1").val()
+    var p2 = $("#p2").val()
+    var d = {"imgsrc": imgsrc , "m":m,"p1":p1,"p2":p2}
+    $.ajax({
+            url: '/blur',
+            data: d,
+            cache: false,
+            type: 'POST',
+            success: function(response) {
+
+            $('#target').attr('src', response.url);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+});
+$("#ip1").click(function(e) {
+    var imgsrc = $("#source").attr('src');
+    var m = 1;
+    var p1 = $("#p1").val()
+    var p2 = $("#p2").val()
+    var d = {"imgsrc": imgsrc , "m":m,"p1":p1,"p2":p2}
+    $.ajax({
+            url: '/inpaint',
+            data: d,
+            cache: false,
+            type: 'POST',
+            success: function(response) {
+
+            $('#target').attr('src', response.url);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+});
+$("#ip2").click(function(e) {
+    var imgsrc = $("#source").attr('src');
+    var m = 2;
+    var p1 = $("#p1").val()
+    var p2 = $("#p2").val()
+    var d = {"imgsrc": imgsrc , "m":m,"p1":p1,"p2":p2}
+    $.ajax({
+            url: '/inpaint',
+            data: d,
+            cache: false,
+            type: 'POST',
+            success: function(response) {
+
+            $('#target').attr('src', response.url);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+});
+
+$("#up").click(function(e){
+    var form_data = new FormData($('#up-form')[0]);
+    $.ajax({
+            type: 'POST',
+            url: '/upload',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: false,
+            success: function(data) {
+                console.log(data);
+                $('#source').attr('src',data.url);
+            },
+        });
+});
+
+
+});
+
+    </script>
+{% endblock %}
