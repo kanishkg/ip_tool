@@ -1,22 +1,21 @@
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Welcome
 
-Hello. Want to get started with Flask quickly? Good. You came to the right place. This Flask application framework is pre-configured with **Flask-SQLAlchemy**, **Flask-WTF**, **Fabric**, **Coverage**, and the **Bootstrap** frontend (among others). This will get your Flask app up and running on Heroku or PythonAnywhere quickly. Use this starter, boilerplate for all you new Flask projects. Cheers!
+This is an image processing toolbox that gives the functionality of selective blurring and object removal. It has a web-based GUI and can easily be used by following the instructions below. It incorporates:
+1. Selective Search based object selection
+2. Grab Cut based object selection
+3. Motion Blur
+4. Exemplar Based image inpainting
+5. TELEA image Inpaintaing
 
 <hr>
 
-![real-python-logo](https://raw.githubusercontent.com/realpython/about/master/rp_small.png)
-
-**Designed for the [Real Python](http://www.realpython.com) course.**
 
 <hr>
 
-Preview the skeleton app here - [http://www.flaskboilerplate.com/](http://www.flaskboilerplate.com/)
 
-**EXAMPLE APP: [http://flasktaskr.herokuapp.com/](http://flasktaskr.herokuapp.com/)**
 
-**What is Flask?** Flask is a microframework for Python based on Werkzeug and Jinja2.
+
 
 Project Structure
 --------
@@ -31,6 +30,17 @@ Project Structure
   ├── forms.py
   ├── models.py
   ├── requirements.txt
+  ├── ip_scripts
+  │   ├── __init__.py
+  │   ├── blobs.py
+  │   ├── color_utils.py
+  │   ├── hist.py
+  │   ├── inpaint.py
+  │   ├── inpainter.py
+  │   ├── segment_image.py
+  │   ├── selective_blur.py
+  │   ├── ssearch.py
+  │   ├── sim_features.py
   ├── static
   │   ├── css
   │   │   ├── bootstrap-3.0.0.min.css
@@ -68,30 +78,22 @@ Project Structure
       │   ├── 404.html
       │   └── 500.html
       ├── forms
-      │   ├── forgot.html
-      │   ├── login.html
-      │   └── register.html
+      │   ├── home.html
       ├── layouts
-      │   ├── form.html
       │   └── main.html
       └── pages
           ├── placeholder.about.html
           └── placeholder.home.html
   ```
 
-### Screenshots
-
-![Pages](https://github.com/mjhea0/flask-boilerplate/blob/master/screenshots/pages.png)
-
-![Forms](https://github.com/mjhea0/flask-boilerplate/blob/master/screenshots/forms.png)
-
-
+### Algorithmic Details
+Refer to the report for details an the various algorithms implemented
 ### Quick Start
 
 1. Clone the repo
   ```
-  $ git clone https://github.com/mjhea0/flask-boilerplate.git
-  $ cd flask-boilerplate
+  $ git clone https://github.com/kanishkg/ip_tool.git
+  $ cd ip_tool
   ```
 
 2. Initialize and activate a virtualenv:
@@ -166,9 +168,9 @@ Deploying to Heroku
   $ heroku open
   ```
 
-11. You app should look similar to this - [http://www.flaskboilerplate.com/](http://www.flaskboilerplate.com/)
 
-12. Having problems? Look at the Heroku error log:
+
+11. Having problems? Look at the Heroku error log:
 
   ```
   $ heroku logs
@@ -184,8 +186,8 @@ Deploying to Heroku
 3. Once logged in, you should be on the Consoles tab.
 4. Clone this repo:
   ```
-  $ git clone git://github.com/mjhea0/flask-boilerplate.git
-  $ cd flask-boilerplate
+  $ git clone git://github.com/kanishkg/ip_tool.git
+  $ cd ip_tool
   ```
 
 5. Create and activate a virtualenv:
@@ -206,7 +208,7 @@ Once the web app has been created (it'll take 20 seconds or so), you'll see a li
 10. Put the following lines of code at the start of the WSGI file (changing "your-username" appropriately)
 
   ```
-  activate_this = '/home/your-username/flask-boilerplate/venv/bin/activate_this.py'
+  activate_this = '/home/your-username/ip_tool/venv/bin/activate_this.py'
   execfile(activate_this, dict(__file__=activate_this))
   ```
 
@@ -221,7 +223,7 @@ Once the web app has been created (it'll take 20 seconds or so), you'll see a li
   to
 
   ```
-  project_home = u'/home/your-username/flask-boilerplate'
+  project_home = u'/home/your-username/ip_tool'
   ```
 
   from
@@ -265,19 +267,5 @@ Once the web app has been created (it'll take 20 seconds or so), you'll see a li
 
 PUSH and PULL away!
 
-### What's next?
 
-1. Using Heroku? Make sure you deactivate your virtualenv once you're done deploying: `deactivate`
-2. Need to reactivate? (1) Unix - `source venv/bin/activate` (2) Windows - `venv\scripts\activate`
-4. Add your Google Analytics ID to the *main.html* file
-5. Add a domain name to [Heroku](https://devcenter.heroku.com/articles/custom-domains) or PythonAnywhere via a [CNAME](http://en.wikipedia.org/wiki/CNAME_record) record
-5. DEVELOP YOUR APP - need [help](http://realpython.com)?
-
-### Learn More
-
-1. [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/python)
-2. [PythonAnywhere - Help](https://www.pythonanywhere.com/help/)
-1. [Flask Documentation](http://flask.pocoo.org/docs/)
-2. [Flask Extensions](http://flask.pocoo.org/extensions/)
-1. [Real Python](http://www.realpythonfortheweb.com) :)
 
